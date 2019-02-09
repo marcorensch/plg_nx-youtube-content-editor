@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="../css/modal.css" type="text/css" />
-<script type="text/javascript" src="/media/jui/js/jquery.js"></script><script type="text/javascript" src="../js/insert.js"></script>
+<script type="text/javascript" src="/joomla/media/jui/js/jquery.js"></script><script type="text/javascript" src="../js/insert.js"></script>
 </head>
 <body>
 <form id="nxyt-settings-form">
@@ -18,11 +18,21 @@
 </fieldset>
 <h3>Design Settings</h3><fieldset class="panelform">
 <ul>
-<li class="formelm"><label id="params_layout-lbl" for="params_layout">
-	Layout</label>
-<select id="params_layout" name="params[layout]">
-	<option value="block" selected="selected">Block</option>
-	<option value="inline">Inline</option>
+<li class="formelm"><label id="params_pl_float-lbl" for="params_pl_float" class="hasPopover" title="PLG_NXYTRNDR_FLOAT" data-content="PLG_NXYTRNDR_FLOAT_DESCRIPTION">
+	PLG_NXYTRNDR_FLOAT</label>
+<select id="params_pl_float" name="params[pl_float]">
+	<option value="none" selected="selected">PLG_NXYTRNDR_FLOAT_NO_FLOAT</option>
+	<option value="left">PLG_NXYTRNDR_FLOAT_LEFT</option>
+	<option value="right">PLG_NXYTRNDR_FLOAT_RIGHT</option>
+</select>
+</li>
+<li class="formelm"><label id="params_pl_margin-lbl" for="params_pl_margin" class="hasPopover" title="PLG_NXYTRNDR_STYLE_MARGIN" data-content="PLG_NXYTRNDR_STYLE_MARGIN_DESC">
+	PLG_NXYTRNDR_STYLE_MARGIN</label>
+<select id="params_pl_margin" name="params[pl_margin]">
+	<option value="remove" selected="selected">no margin</option>
+	<option value="small">small</option>
+	<option value="medium">medium</option>
+	<option value="large">large</option>
 </select>
 </li>
 <li class="formelm"><label id="params_cont_width-lbl" for="params_cont_width">
@@ -182,6 +192,9 @@
 				Yes			</label>
 			</fieldset>
 </li>
+<li class="formelm"><label id="params_block_message-lbl" for="params_block_message" class="hasPopover" title="Message / Placeholder for Blocker" data-content="Enter here your text / HTML for Blocking Container">
+	Message / Placeholder for Blocker</label>
+<div class="editor wf-editor-container">  <div class="wf-editor-header"></div>  <textarea spellcheck="false" id="params_block_message" name="params[block_message]" cols="" rows="" style="width:900px;height:500px;" class="wf-editor mce_editable" wrap="off"></textarea></div></li>
 </ul>
 </fieldset>
 <button class="nxyt-settings-submit btn btn-primary" type="button">Insert</button>
