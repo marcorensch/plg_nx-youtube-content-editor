@@ -37,10 +37,14 @@ class PlgContentNxyoutubeRender extends JPlugin
 	/** Core service object. */
 	private $core;
 
+	
+
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
+		
 
 		$text = $article->text;
+		
 
 		/* Activation tag used to produce videocontainer with the plug-in. */
 	 	$tag = 'nxyt';
@@ -59,6 +63,12 @@ class PlgContentNxyoutubeRender extends JPlugin
 			return true;
 		}
 
+		// Add Stylesheet for responsive behavior
+		$document = JFactory::getDocument();
+		$document->addStyleSheet('plugins/content/nxyoutuberender/media/css/nxyoutuberender.css');
+		JHtml::_('jquery.framework');
+		//$document->addScript('plugins/content/nxyoutuberender/media/js/nxyoutubereplacer.js.php');
+
 		// pattern for key/value parameter list
 		$param_pattern = '(?:[^{/}]+|/(?!\})|\{\$[^{/}]+\})*';  // characters other than curly braces, or variable substitutions in the style "{$variable}"
 
@@ -67,15 +77,52 @@ class PlgContentNxyoutubeRender extends JPlugin
 		// find {nxyt}...{/nxyt} tags and emit code
 		$tag_player = preg_quote($tag, '#');
 		$pattern = '#\{'.$tag_player.'\b('.$param_pattern.')\}(.+?)\{/'.$tag_player.'\}#msSu';
-		$playercount += $this->getPlayerReplacementAll($text, $pattern);
 
-		
-
-		return $playercount > 0;
+		$article->text = $this->getPlayerReplacementAll($text, $pattern); // counter for idk
 	}
 
+
+	private function setPlayerParameter($paramtext){
+		// Plugin Parameters:
+		$plg_params = $this->params;
+/*
+		var_dump($this->params->get('layout'));
+		highlight_string("<?php\n\$data =\n" . var_export($this->params, true) . ";\n?>");
+*/
+		// User Parameters:
+		$array= explode(' ', trim($paramtext));
+		$usr_params = array();
+		foreach($array as $arr){
+			$element = explode('=',$arr);
+			// dirty fix for source url containing "="
+			if($element[0] === 'source' && count($element)>2){
+				// Whole url contains =
+				$value = str_replace("\"", "", $element[2]);
+				
+			}else{
+				// simple data
+				$value = str_replace("\"", "", $element[1]);
+			}
+			$new_arr = array($element[0]=> $value);
+			$usr_params = array_merge($usr_params, $new_arr);
+		}
+		// Combine Parameters
+		$video_params = new stdClass();
+		$video_params->nxytid = 'nxyt_' . rand(5, 99);
+		$video_params->source = $usr_params['source'];
+		foreach($plg_params as $key => $value){
+			if(array_key_exists($key, $usr_params)){
+				$video_params->$key = $usr_params[$key];
+			}else{
+				$video_params->$key = $value;
+			};
+		}
+		return $video_params;
+	}
+
+
 	/**
-	* Replaces all occurrences of a gallery activation tag.
+	* Replaces all occurrences of a video activation tag.
 	* @param {string} $text Article (content item) text.
 	* @param {string} $pattern Replacement regular expression pattern.
 	*/
@@ -89,51 +136,87 @@ class PlgContentNxyoutubeRender extends JPlugin
 			$start = $match[0][1];
 			$end = $start + strlen($match[0][0]);
 
-			try {
-				$innertext = isset($match[2]) ? $match[2][0] : null;  // text in between start and end tags (unless omitted)
-				echo '<script>console.log("Inner Text '.$innertext. '");</script>';
-				$paramtext = $match[1][0];
-				echo "<script>console.log('Param Text $paramtext');</script>";
-				$body = $this->getPlayerReplacementSingle($innertext, $paramtext);
-				$text = substr($text, 0, $start).$body.substr($text, $end);
-				$offset = $start + strlen($body);
-			} catch (Exception $e) {
-				$app = JFactory::getApplication();
-				switch ($this->core->verbosityLevel()) {
-					case 'none':
-						// display no message, hide activation tag completely
-						$text = substr($text, 0, $start).substr($text, $end);
-						$offset = $start;
-						break;
-					case 'verbose':
-					default:
-						// display a specific, informative message
-						$message = $e->getMessage();
+			$innertext = isset($match[2]) ? $match[2][0] : null;  // text in between start and end tags (unless omitted)
+			echo '<script>console.log("Inner Text '.$innertext. '");</script>';
+			$paramtext = $match[1][0];
+			echo "<script>console.log('Param Text $paramtext');</script>";
+			$body = $this->getPlayerReplacementSingle($paramtext);
+			$text = substr($text, 0, $start).$body.substr($text, $end);
 
-						// leave activation tag as it appears
-						$offset = $end;
+			$offset = $start + strlen($body);
 
-						// show error message
-						$app->enqueueMessage($message, 'error');
-				}
-			}
-		}
-		return $count;
+		};
+
+		return $text;
 	}
 
 	/**
-	* Replaces a single occurrence of a gallery activation tag.
-	* @param {string} $sourcetext A string that identifies the image source.
+	* Replaces a single occurrence of a video activation tag.
 	* @param {string} $paramtext A string that stores parameter key/value pairs.
 	*/
-	private function getPlayerReplacementSingle($sourcetext, $paramtext) {
+	private function getPlayerReplacementSingle($paramtext) {
 
-		// the activation code {gallery key=value}myfolder{/gallery} translates into a source and a parameter string
+		// the activation code {nxyt key=value}urlorid{/nxyt} translates into a source and a parameter string
 		$paramtext = self::strip_html($paramtext);
-		//$this->core->setParameterString($paramtext);
+		// Parameters
+		
+		$playerParameters = self::setPlayerParameter($paramtext);
+		$cls = ' nx-float-'.$playerParameters->pl_float;
+		echo '<pre>' . var_export($playerParameters, true) . '</pre>';
 
-		echo '<script>console.log("The End is reached");</script>';
+		switch($playerParameters->cont_width){
+			case '25':
+				$cls .= ' nx-col-3';
+				break;
+			case '33':
+				$cls .= ' nx-col-4';
+				break;
+			case '50':
+				$cls .= ' nx-col-6';
+				break;
+			case '75':
+				$cls .= ' nx-col-9';
+				break;
+			case '100':
+			default:
+				$cls .= ' nx-col-12';
+				break;
+		};
+
+		$playersetupstring = '?autoplay='.$playerParameters->pl_ap.'&controls='.$playerParameters->pl_ctrl.'&disablekb='.$playerParameters->pl_dis_kb.'&cc_load_policy='.$playerParameters->pl_sub.'&playsinline='.$playerParameters->pl_ios.'&modestbranding='.$playerParameters->pl_mb.'&loop='.$playerParameters->pl_lo.'&fs='.$playerParameters->pl_fs.'&origin='.JUri::getInstance();
+
+
+		$placeholder = '<div class="nx-video-placeholder" data-container-id="'.$playerParameters->nxytid.'"><div class="placeholder_inner">'.$playerParameters->block_message.'</div></div>';
+		$iframe = '<iframe width="1920" height="1080" src="https://www.youtube-nocookie.com/embed/'.$playerParameters->source.$playersetupstring.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration('
+		jQuery(document).ready(function($){
+			console.log(\'nx-youtube plugin replacer for '.$playerParameters->nxytid.' loaded\');
+			$(\'.nx-video-container\').on(\'click\',\'.nx-video-placeholder[data-container-id="'.$playerParameters->nxytid.'"]\', function(){
+				let containerId = $(this).attr(\'data-container-id\');
+				$(\'.nx-video-container[data-container-id="\'+containerId+\'"]\').html(\''.$iframe.'\');
+			});
+		});
+		
+		');
+
+		$player = '';
+		$player .= '<div class="nx-video-container-outer '.trim($cls).'">';
+		$player .= 		'<div class="nx-video-container nx-margin-'.$playerParameters->pl_margin.'" style="background-color:'.$playerParameters->block_message_bg.'" data-container-id="'.$playerParameters->nxytid.'">';
+		if(intval($playerParameters->block_loading)){
+			$player .= 			$placeholder;
+		}else{
+			$player .= 			$iframe;
+		};
+		$player .= 		'</div>';
+		$player .= '</div>';
+
+		
+
+		return $player;
 	}
+
+	
 
 	private static function strip_html($html) {
 		$text = html_entity_decode($html, ENT_QUOTES, 'utf-8');  // translate HTML entities to regular characters

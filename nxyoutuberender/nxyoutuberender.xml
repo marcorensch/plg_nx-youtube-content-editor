@@ -16,6 +16,7 @@
 		<filename plugin="nxyoutuberender">nxyoutuberender.php</filename>
 		<filename>index.html</filename>
 		<folder>media</folder>
+		<folder>models</folder>
 		<folder>language</folder>
 		<folder>helper</folder>
 	</files>
@@ -25,10 +26,17 @@
 	</languages>
 	<config>
 		<fields name="params">
-			<fieldset name="basic" label="PLG_NXYTRNDR_FIELDSET_DESIGN">
-				<field name="layout" type="list" default="block" label="PLG_NXYTRNDR_LAYOUT" description="PLG_NXYTRNDR_LAYOUT_DESCRIPTION">
-					<option value="block">PLG_NXYTRNDR_LAYOUT_BLOCK</option>
-					<option value="inline">PLG_NXYTRNDR_LAYOUT_INLINE</option>
+			<fieldset name="basic" label="PLG_NXYTRNDR_FIELDSET_DESIGN" addfieldpath="/plugins/content/nxyoutuberender/models/fields">
+				<field name="pl_float" type="list" default="none" label="PLG_NXYTRNDR_FLOAT" description="PLG_NXYTRNDR_FLOAT_DESCRIPTION">
+					<option value="none">PLG_NXYTRNDR_FLOAT_NO_FLOAT</option>
+					<option value="left">PLG_NXYTRNDR_FLOAT_LEFT</option>
+					<option value="right">PLG_NXYTRNDR_FLOAT_RIGHT</option>
+				</field>
+				<field name="pl_margin" type="list" default="remove" label="PLG_NXYTRNDR_STYLE_MARGIN" description="PLG_NXYTRNDR_STYLE_MARGIN_DESC" class="">
+					<option value="remove">PLG_NXYTRNDR_STYLE_MARGIN_NO</option>
+					<option value="small">PLG_NXYTRNDR_STYLE_MARGIN_SM</option>
+					<option value="medium">PLG_NXYTRNDR_STYLE_MARGIN_ME</option>
+					<option value="large">PLG_NXYTRNDR_STYLE_MARGIN_LG</option>
 				</field>
 				<field name="cont_width" type="radio" default="100" label="PLG_NXYTRNDR_CWIDTH" description="PLG_NXYTRNDR_CWIDTH_DESCRIPTION" class="btn-group">
 					<option value="100">PLG_NXYTRNDR_CWIDTH_100</option>
@@ -91,6 +99,8 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+				<field showon="block_loading:1" name="block_message_bg" type="color" format="rgba" default="rgba(100,100,100, 0.7)" label="PLG_NXYTRNDR_BMBG" description="PLG_NXYTRNDR_BMBG_DESC" />
+				<field showon="block_loading:1" name="block_message" type="editor" label="PLG_NXYTRNDR_BM" description="Enter here your text / HTML for Blocking Container" width="900" filter="safehtml" />
 			</fieldset>
 		</fields>
 	</config>
