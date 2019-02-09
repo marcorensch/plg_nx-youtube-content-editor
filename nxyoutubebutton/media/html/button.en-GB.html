@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../css/modal.css" type="text/css" />
+<script type="text/javascript" src="/media/jui/js/jquery.js"></script><script type="text/javascript" src="../js/insert.js"></script>
+</head>
+<body>
+<form id="nxyt-settings-form">
+<button class="nxyt-settings-submit btn btn-primary" type="button">Insert</button>
+<h3>Source Setup</h3><fieldset class="panelform">
+<ul>
+<li class="formelm"><label id="params_source-lbl" for="params_source">
+	Video Source URL</label>
+<input type="text" name="params[source]" id="params_source"  value=""      placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX"         />
+</li>
+</ul>
+</fieldset>
+<h3>Design Settings</h3><fieldset class="panelform">
+<ul>
+<li class="formelm"><label id="params_layout-lbl" for="params_layout">
+	Layout</label>
+<select id="params_layout" name="params[layout]">
+	<option value="block" selected="selected">Block</option>
+	<option value="inline">Inline</option>
+</select>
+</li>
+<li class="formelm"><label id="params_cont_width-lbl" for="params_cont_width">
+	Container width</label>
+<fieldset id="params_cont_width" class="btn-group radio"
+				>
+
+						
+						<input type="radio" id="params_cont_width0" name="params[cont_width]" value="100" checked="checked" />			<label for="params_cont_width0" >
+				100%			</label>
+					
+						<input type="radio" id="params_cont_width1" name="params[cont_width]" value="75"  />			<label for="params_cont_width1" >
+				75%			</label>
+					
+						<input type="radio" id="params_cont_width2" name="params[cont_width]" value="50"  />			<label for="params_cont_width2" >
+				50%			</label>
+					
+						<input type="radio" id="params_cont_width3" name="params[cont_width]" value="33"  />			<label for="params_cont_width3" >
+				33%			</label>
+					
+						<input type="radio" id="params_cont_width4" name="params[cont_width]" value="25"  />			<label for="params_cont_width4" >
+				25%			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_cont_align-lbl" for="params_cont_align">
+	Container alignement</label>
+<fieldset id="params_cont_align" class="btn-group radio"
+				>
+
+						
+						<input type="radio" id="params_cont_align0" name="params[cont_align]" value="left"  />			<label for="params_cont_align0" >
+				left			</label>
+					
+						<input type="radio" id="params_cont_align1" name="params[cont_align]" value="center" checked="checked" />			<label for="params_cont_align1" >
+				center			</label>
+					
+						<input type="radio" id="params_cont_align2" name="params[cont_align]" value="right"  />			<label for="params_cont_align2" >
+				right			</label>
+			</fieldset>
+</li>
+<li class="formelm"><span class="spacer"><span class="before"></span><span class="nx-spacer"><label id="params_pl_spacer-lbl" class="">Player Settings</label></span><span class="after"></span></span> </li>
+<li class="formelm"><label id="params_pl_ap-lbl" for="params_pl_ap">
+	Autoplay</label>
+<fieldset id="params_pl_ap" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_ap0" name="params[pl_ap]" value="0" checked="checked" />			<label for="params_pl_ap0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_ap1" name="params[pl_ap]" value="1"  />			<label for="params_pl_ap1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_lo-lbl" for="params_pl_lo">
+	Loop</label>
+<fieldset id="params_pl_lo" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_lo0" name="params[pl_lo]" value="0" checked="checked" />			<label for="params_pl_lo0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_lo1" name="params[pl_lo]" value="1"  />			<label for="params_pl_lo1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_sub-lbl" for="params_pl_sub">
+	Subtitles</label>
+<fieldset id="params_pl_sub" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_sub0" name="params[pl_sub]" value="0" checked="checked" />			<label for="params_pl_sub0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_sub1" name="params[pl_sub]" value="1"  />			<label for="params_pl_sub1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_dis_kb-lbl" for="params_pl_dis_kb">
+	Disable Keyboard</label>
+<fieldset id="params_pl_dis_kb" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_dis_kb0" name="params[pl_dis_kb]" value="0" checked="checked" />			<label for="params_pl_dis_kb0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_dis_kb1" name="params[pl_dis_kb]" value="1"  />			<label for="params_pl_dis_kb1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_ctrl-lbl" for="params_pl_ctrl">
+	Display Controls</label>
+<fieldset id="params_pl_ctrl" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_ctrl0" name="params[pl_ctrl]" value="0" checked="checked" />			<label for="params_pl_ctrl0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_ctrl1" name="params[pl_ctrl]" value="1"  />			<label for="params_pl_ctrl1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_fs-lbl" for="params_pl_fs" class="hasTooltip" title="&lt;strong&gt;Fullscreen Icon&lt;/strong&gt;">
+	Fullscreen Icon</label>
+<fieldset id="params_pl_fs" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_fs0" name="params[pl_fs]" value="0" checked="checked" />			<label for="params_pl_fs0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_fs1" name="params[pl_fs]" value="1"  />			<label for="params_pl_fs1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_mb-lbl" for="params_pl_mb" class="hasTooltip" title="&lt;strong&gt;Display YT Icon in Controls&lt;/strong&gt;">
+	Display YT Icon in Controls</label>
+<fieldset id="params_pl_mb" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_mb0" name="params[pl_mb]" value="0" checked="checked" />			<label for="params_pl_mb0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_mb1" name="params[pl_mb]" value="1"  />			<label for="params_pl_mb1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><label id="params_pl_ios-lbl" for="params_pl_ios" class="hasTooltip" title="&lt;strong&gt;iOS inline playback&lt;/strong&gt;">
+	iOS inline playback</label>
+<fieldset id="params_pl_ios" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_ios0" name="params[pl_ios]" value="0" checked="checked" />			<label for="params_pl_ios0" >
+				No			</label>
+					
+						<input type="radio" id="params_pl_ios1" name="params[pl_ios]" value="1"  />			<label for="params_pl_ios1" >
+				Yes			</label>
+			</fieldset>
+</li>
+<li class="formelm"><span class="spacer"><span class="before"></span><span class="nx-spacer"><label id="params_pl_security-lbl" class="">Security Data Privacy Settings</label></span><span class="after"></span></span> </li>
+<li class="formelm"><label id="params_block_loading-lbl" for="params_block_loading">
+	Block Youtube Frame on Pageload</label>
+<fieldset id="params_block_loading" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_block_loading0" name="params[block_loading]" value="0"  />			<label for="params_block_loading0" >
+				No			</label>
+					
+						<input type="radio" id="params_block_loading1" name="params[block_loading]" value="1" checked="checked" />			<label for="params_block_loading1" >
+				Yes			</label>
+			</fieldset>
+</li>
+</ul>
+</fieldset>
+<button class="nxyt-settings-submit btn btn-primary" type="button">Insert</button>
+</form>
+<p>nx-designs</p>
+<div id="debug"></div></body>
+</html>

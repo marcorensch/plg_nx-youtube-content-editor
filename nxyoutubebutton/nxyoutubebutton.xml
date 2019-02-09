@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="plugin"
+	version="3.1"
+	group="editors-xtd"
+	method="upgrade">
+	<name>nx-YouTube Content Plugin Editor Button</name>
+	<author>nx-designs</author>
+	<creationDate>January 2019</creationDate>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@nx-designs.ch</authorEmail>
+	<authorUrl>www.nx-designs.ch</authorUrl>
+	<version>1.0</version>
+	<description>PLG_NXYTBTN_EDITORBUTTON_DESCRIPTION</description>
+	<files>
+		<filename plugin="nxyoutubebutton">nxyoutubebutton.php</filename>
+		<filename>nxyoutubebutton.xml</filename>
+		<filename>index.html</filename>
+		<folder>media</folder>
+		<folder>language</folder>
+		<folder>helper</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_editors-xtd_nxyoutubebutton.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_editors-xtd_nxyoutubebutton.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" label="PLG_NXYTBTN_URL_SETUP">
+				<field name="source" type="input" label="PLG_NXYTBTN_SRC" description="PLG_NXYTBTN_SRC_DESCRIPTION" default="" hint="https://www.youtube.com/watch?v=XXXXXXXXXXX" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
