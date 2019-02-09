@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="plugin"
+	version="3.1"
+	group="content"
+	method="upgrade">
+	<name>nx-YouTube Content Plugin Renderer</name>
+	<author>nx-designs</author>
+	<creationDate>January 2019</creationDate>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@nx-designs.ch</authorEmail>
+	<authorUrl>www.nx-designs.ch</authorUrl>
+	<version>1.0</version>
+	<description>PLG_NXYTRNDR_CONTENT_DESCRIPTION</description>
+	<files>
+		<filename plugin="nxyoutuberender">nxyoutuberender.php</filename>
+		<filename>index.html</filename>
+		<folder>media</folder>
+		<folder>language</folder>
+		<folder>helper</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_nxyoutuberender.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_nxyoutuberender.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" label="PLG_NXYTRNDR_FIELDSET_DESIGN">
+				<field name="layout" type="list" default="block" label="PLG_NXYTRNDR_LAYOUT" description="PLG_NXYTRNDR_LAYOUT_DESCRIPTION">
+					<option value="block">PLG_NXYTRNDR_LAYOUT_BLOCK</option>
+					<option value="inline">PLG_NXYTRNDR_LAYOUT_INLINE</option>
+				</field>
+				<field name="cont_width" type="radio" default="100" label="PLG_NXYTRNDR_CWIDTH" description="PLG_NXYTRNDR_CWIDTH_DESCRIPTION" class="btn-group">
+					<option value="100">PLG_NXYTRNDR_CWIDTH_100</option>
+					<option value="75">PLG_NXYTRNDR_CWIDTH_75</option>
+					<option value="50">PLG_NXYTRNDR_CWIDTH_50</option>
+					<option value="33">PLG_NXYTRNDR_CWIDTH_33</option>
+					<option value="25">PLG_NXYTRNDR_CWIDTH_25</option>
+				</field>
+				<field name="cont_align" type="radio" default="center" label="PLG_NXYTRNDR_CALIGN" description="PLG_NXYTRNDR_CALIGN_DESCRIPTION" class="btn-group">
+					<option value="left">PLG_NXYTRNDR_CALIGN_LEFT</option>
+					<option value="center">PLG_NXYTRNDR_CALIGN_CENTER</option>
+					<option value="right">PLG_NXYTRNDR_CALIGN_RIGHT</option>
+				</field>
+
+				<!-- Player Settings --> 
+				<field name="pl_spacer" type="spacer" label="PLG_NXYTRNDR_SPC_PL" class="nx-spacer" />
+				<field name="pl_ap" type="radio" default="0" label="PLG_NXYTRNDR_PL_AP" description="PLG_NXYTRNDR_PL_AP_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="pl_lo" type="radio" default="0" label="PLG_NXYTRNDR_PL_LO" description="PLG_NXYTRNDR_PL_LO_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="pl_sub" type="radio" default="0" label="PLG_NXYTRNDR_PL_SUB" description="PLG_NXYTRNDR_PL_SUB_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="pl_dis_kb" type="radio" default="0" label="PLG_NXYTRNDR_PL_DIS_KB" description="PLG_NXYTRNDR_PL_DIS_KB_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="pl_ctrl" type="radio" default="0" label="PLG_NXYTRNDR_PL_CTRL" description="PLG_NXYTRNDR_PL_CTRL_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="pl_fs" type="radio" default="0" label="PLG_NXYTRNDR_PL_FS" description="PLG_NXYTRNDR_PL_FS" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="pl_mb" type="radio" default="0" label="PLG_NXYTRNDR_PL_MB" description="PLG_NXYTRNDR_PL_MB" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option> 
+					<option value="1">JYES</option> 
+				</field>
+
+				<field name="pl_ios" type="radio" default="0" label="PLG_NXYTRNDR_PL_IOS" description="PLG_NXYTRNDR_PL_IOS" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<!-- Security --> 
+				<field name="pl_security" type="spacer" label="PLG_NXYTRNDR_SEC_PL" class="nx-spacer" />
+				<field name="block_loading" type="radio" default="1" label="PLG_NXYTRNDR_BLOCKLOAD" description="PLG_NXYTRNDR_BLOCKLOAD_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
