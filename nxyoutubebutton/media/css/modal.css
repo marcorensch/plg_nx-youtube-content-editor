@@ -13,73 +13,33 @@ body {
     padding: 8px;
 }
 
-form {
+.nx-sticky {
     background: url(v1_dark_small.png) no-repeat scroll top right transparent;
 }
 
-h3 {
-    padding-top: 1em;
+.nx-fields {
+    margin-top: 30px;
 }
 
-label,
-input,
-select {
-    font: 12px/14px sans-serif;
-}
-
-.panelform>ul {
-    display: block;
-    margin: 0;
-    padding: 0;
-    list-style: none outside none;
-}
-
-.panelform>ul>li {
-    margin: 0;
-    padding: 0;
-    min-height: 36px;
-}
-
-.panelform>ul>li>input[type=checkbox]:first-child {
-    margin: unset;
-}
-
-.panelform>ul>li>label {
-    display: inline-block;
-    margin-left: 5px;
-    width: 30%;
-}
-
-input[type=text],
-select {
-    width: 60%;
-}
-
-input[type=number].form-control,
-input[type=text].form-control {
-    display: inline-block;
+.nx-fields .label label {
+    font-weight: bold;
 }
 
 fieldset {
-    margin: 0;
-    padding: none;
-    border: none;
+    border: 0px;
 }
 
-fieldset.radio {
-    margin: 0;
-    border: none 0 transparent;
-    padding: 0 0 8px 20px;
-    display: inline-block;
-    width: 60%;
+fieldset input:not(:first-child) {
+    margin-left: 10px;
 }
 
-fieldset.btn-group>label {
-    margin-right: 0px;
+/* dirty fix for media manager has to be removed for end solution */
+.hide,
+.field-media-wrapper .input-prepend button{
+    visibility: hidden;
+    display: none;
 }
 
-.nx-spacer>label {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
+.field-media-wrapper .input-prepend button {
+
 }

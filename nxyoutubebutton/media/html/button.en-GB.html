@@ -2,41 +2,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="../css/modal.css" type="text/css" />
-<script type="text/javascript" src="/joomla/media/jui/js/jquery.js"></script><script type="text/javascript" src="../js/insert.js"></script>
+<script type="text/javascript" src="/media/jui/js/jquery.js"></script><script type="text/javascript" src="../js/classadder.js?ver=1.0"></script>
+<script type="text/javascript" src="../semanticui/semantic.min.js?ver=1.0"></script>
+<link rel="stylesheet" href="../semanticui/semantic.min.css">
+<script type="text/javascript" src="../js/semantic_init.js?ver=1.1"></script>
+<script type="text/javascript" src="../js/insert.js?ver=1.39"></script>
+<link rel="stylesheet" href="../css/modal.css">
 </head>
 <body>
-<form id="nxyt-settings-form">
-<button class="nxyt-settings-submit btn btn-primary" type="button">Insert</button>
-<h3>Source Setup</h3><fieldset class="panelform">
-<ul>
-<li class="formelm"><label id="params_source-lbl" for="params_source">
+<form class="ui form" id="nxyt-settings-form">
+<div class="ui sticky"><div class="ui segment grid middle aligned">
+<div class="ui six wide column"><button class="ui button green nxyt-settings-submit" type="button">Insert</button></div>
+<div class="ui six wide right floated column"><img src="../img/v1_dark_small.png" /></div>
+</div></div>
+<div class="ui segment">
+<h4 class="ui dividing header">Source Setup</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTBTN_SRC_DESCRIPTION">
+<label id="params_source-lbl" for="params_source">
 	Video Source URL</label>
+
+</div>
+</div>
+<div class="field">
 <input type="text" name="params[source]" id="params_source"  value=""      placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX"         />
-</li>
-</ul>
-</fieldset>
-<h3>Design Settings</h3><fieldset class="panelform">
-<ul>
-<li class="formelm"><label id="params_pl_float-lbl" for="params_pl_float" class="hasPopover" title="PLG_NXYTRNDR_FLOAT" data-content="PLG_NXYTRNDR_FLOAT_DESCRIPTION">
-	PLG_NXYTRNDR_FLOAT</label>
+
+</div>
+</div>
+</div>
+<div class="nx-selector ui segment">
+<h4 class="ui dividing header">Design Settings</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_FLOAT_DESCRIPTION">
+<label id="params_pl_float-lbl" for="params_pl_float" class="hasPopover" title="Floating" data-content="Select if the video container floats">
+	Floating</label>
+
+</div>
+</div>
+<div class="field">
 <select id="params_pl_float" name="params[pl_float]">
-	<option value="none" selected="selected">PLG_NXYTRNDR_FLOAT_NO_FLOAT</option>
-	<option value="left">PLG_NXYTRNDR_FLOAT_LEFT</option>
-	<option value="right">PLG_NXYTRNDR_FLOAT_RIGHT</option>
+	<option value="none" selected="selected">no floating</option>
+	<option value="left">left</option>
+	<option value="right">right</option>
 </select>
-</li>
-<li class="formelm"><label id="params_pl_margin-lbl" for="params_pl_margin" class="hasPopover" title="PLG_NXYTRNDR_STYLE_MARGIN" data-content="PLG_NXYTRNDR_STYLE_MARGIN_DESC">
-	PLG_NXYTRNDR_STYLE_MARGIN</label>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_STYLE_MARGIN_DESC">
+<label id="params_pl_margin-lbl" for="params_pl_margin">
+	Container Margin</label>
+
+</div>
+</div>
+<div class="field">
 <select id="params_pl_margin" name="params[pl_margin]">
-	<option value="remove" selected="selected">no margin</option>
+	<option value="remove" selected="selected">remove margin</option>
 	<option value="small">small</option>
 	<option value="medium">medium</option>
 	<option value="large">large</option>
 </select>
-</li>
-<li class="formelm"><label id="params_cont_width-lbl" for="params_cont_width">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_CWIDTH_DESCRIPTION">
+<label id="params_cont_width-lbl" for="params_cont_width">
 	Container width</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_cont_width" class="btn-group radio"
 				>
 
@@ -56,9 +94,18 @@
 						<input type="radio" id="params_cont_width4" name="params[cont_width]" value="25"  />			<label for="params_cont_width4" >
 				25%			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_cont_align-lbl" for="params_cont_align">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_CALIGN_DESCRIPTION">
+<label id="params_cont_align-lbl" for="params_cont_align">
 	Container alignement</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_cont_align" class="btn-group radio"
 				>
 
@@ -72,10 +119,20 @@
 						<input type="radio" id="params_cont_align2" name="params[cont_align]" value="right"  />			<label for="params_cont_align2" >
 				right			</label>
 			</fieldset>
-</li>
-<li class="formelm"><span class="spacer"><span class="before"></span><span class="nx-spacer"><label id="params_pl_spacer-lbl" class="">Player Settings</label></span><span class="after"></span></span> </li>
-<li class="formelm"><label id="params_pl_ap-lbl" for="params_pl_ap">
+
+</div>
+</div>
+</div>
+<div class="nx-selector ui segment">
+<h4 class="ui dividing header">Player Settings</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_AP_DESCRIPTION">
+<label id="params_pl_ap-lbl" for="params_pl_ap">
 	Autoplay</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_ap" class="btn-group btn-group-yesno radio"
 				>
 
@@ -86,9 +143,18 @@
 						<input type="radio" id="params_pl_ap1" name="params[pl_ap]" value="1"  />			<label for="params_pl_ap1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_lo-lbl" for="params_pl_lo">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_LO_DESCRIPTION">
+<label id="params_pl_lo-lbl" for="params_pl_lo">
 	Loop</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_lo" class="btn-group btn-group-yesno radio"
 				>
 
@@ -99,9 +165,18 @@
 						<input type="radio" id="params_pl_lo1" name="params[pl_lo]" value="1"  />			<label for="params_pl_lo1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_sub-lbl" for="params_pl_sub">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_SUB_DESCRIPTION">
+<label id="params_pl_sub-lbl" for="params_pl_sub">
 	Subtitles</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_sub" class="btn-group btn-group-yesno radio"
 				>
 
@@ -112,9 +187,18 @@
 						<input type="radio" id="params_pl_sub1" name="params[pl_sub]" value="1"  />			<label for="params_pl_sub1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_dis_kb-lbl" for="params_pl_dis_kb">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_DIS_KB_DESCRIPTION">
+<label id="params_pl_dis_kb-lbl" for="params_pl_dis_kb">
 	Disable Keyboard</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_dis_kb" class="btn-group btn-group-yesno radio"
 				>
 
@@ -125,9 +209,18 @@
 						<input type="radio" id="params_pl_dis_kb1" name="params[pl_dis_kb]" value="1"  />			<label for="params_pl_dis_kb1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_ctrl-lbl" for="params_pl_ctrl">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_CTRL_DESCRIPTION">
+<label id="params_pl_ctrl-lbl" for="params_pl_ctrl">
 	Display Controls</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_ctrl" class="btn-group btn-group-yesno radio"
 				>
 
@@ -138,9 +231,18 @@
 						<input type="radio" id="params_pl_ctrl1" name="params[pl_ctrl]" value="1"  />			<label for="params_pl_ctrl1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_fs-lbl" for="params_pl_fs" class="hasTooltip" title="&lt;strong&gt;Fullscreen Icon&lt;/strong&gt;">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_FS">
+<label id="params_pl_fs-lbl" for="params_pl_fs" class="hasTooltip" title="&lt;strong&gt;Fullscreen Icon&lt;/strong&gt;">
 	Fullscreen Icon</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_fs" class="btn-group btn-group-yesno radio"
 				>
 
@@ -151,9 +253,18 @@
 						<input type="radio" id="params_pl_fs1" name="params[pl_fs]" value="1"  />			<label for="params_pl_fs1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_mb-lbl" for="params_pl_mb" class="hasTooltip" title="&lt;strong&gt;Display YT Icon in Controls&lt;/strong&gt;">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_MB">
+<label id="params_pl_mb-lbl" for="params_pl_mb" class="hasTooltip" title="&lt;strong&gt;Display YT Icon in Controls&lt;/strong&gt;">
 	Display YT Icon in Controls</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_mb" class="btn-group btn-group-yesno radio"
 				>
 
@@ -164,9 +275,18 @@
 						<input type="radio" id="params_pl_mb1" name="params[pl_mb]" value="1"  />			<label for="params_pl_mb1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_pl_ios-lbl" for="params_pl_ios" class="hasTooltip" title="&lt;strong&gt;iOS inline playback&lt;/strong&gt;">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_PL_IOS">
+<label id="params_pl_ios-lbl" for="params_pl_ios" class="hasTooltip" title="&lt;strong&gt;iOS inline playback&lt;/strong&gt;">
 	iOS inline playback</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_pl_ios" class="btn-group btn-group-yesno radio"
 				>
 
@@ -177,10 +297,42 @@
 						<input type="radio" id="params_pl_ios1" name="params[pl_ios]" value="1"  />			<label for="params_pl_ios1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><span class="spacer"><span class="before"></span><span class="nx-spacer"><label id="params_pl_security-lbl" class="">Security Data Privacy Settings</label></span><span class="after"></span></span> </li>
-<li class="formelm"><label id="params_block_loading-lbl" for="params_block_loading">
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_DEBUG_DESC">
+<label id="params_nx_debug-lbl" for="params_nx_debug">
+	Enable Debug</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_nx_debug" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_nx_debug0" name="params[nx_debug]" value="0" checked="checked" />			<label for="params_nx_debug0" >
+				No			</label>
+					
+						<input type="radio" id="params_nx_debug1" name="params[nx_debug]" value="1"  />			<label for="params_nx_debug1" >
+				Yes			</label>
+			</fieldset>
+
+</div>
+</div>
+</div>
+<div class="nx-selector ui segment">
+<h4 class="ui dividing header">Security Data Privacy Settings</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="PLG_NXYTRNDR_BLOCKLOAD_DESCRIPTION">
+<label id="params_block_loading-lbl" for="params_block_loading">
 	Block Youtube Frame on Pageload</label>
+
+</div>
+</div>
+<div class="field">
 <fieldset id="params_block_loading" class="btn-group btn-group-yesno radio"
 				>
 
@@ -191,13 +343,10 @@
 						<input type="radio" id="params_block_loading1" name="params[block_loading]" value="1" checked="checked" />			<label for="params_block_loading1" >
 				Yes			</label>
 			</fieldset>
-</li>
-<li class="formelm"><label id="params_block_message-lbl" for="params_block_message" class="hasPopover" title="Message / Placeholder for Blocker" data-content="Enter here your text / HTML for Blocking Container">
-	Message / Placeholder for Blocker</label>
-<div class="editor wf-editor-container">  <div class="wf-editor-header"></div>  <textarea spellcheck="false" id="params_block_message" name="params[block_message]" cols="" rows="" style="width:900px;height:500px;" class="wf-editor mce_editable" wrap="off"></textarea></div></li>
-</ul>
-</fieldset>
-<button class="nxyt-settings-submit btn btn-primary" type="button">Insert</button>
+
+</div>
+</div>
+</div>
 </form>
 <p>nx-designs</p>
 <div id="debug"></div></body>

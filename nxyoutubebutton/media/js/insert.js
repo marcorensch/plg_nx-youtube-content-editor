@@ -10,6 +10,9 @@
 
 'use strict';
 
+let paramsobj = {};
+let paramsArray = [];
+
 if (!Element.prototype.matches) {
     Element.prototype.matches =
         Element.prototype.msMatchesSelector ||
@@ -29,8 +32,6 @@ function getJoomlaEditorInstance(editor) {
     }
 };
 
-let player_parameters = {};
-
 /**
  * Inserts a nxyoutube activation tag into the Joomla content editor.
  * @param {string} editor The identifier of the Joomla editor.
@@ -38,9 +39,9 @@ let player_parameters = {};
  * @param {string} parameters The list of parameters as key/value pairs.
  */
 function insertTag(editor, tag, parametersstring) {
-    if (player_parameters.source) {
-        console.log(player_parameters);
-        let text = '{' + tag + parametersstring + '}' + player_parameters.source + '{/' + tag + '}';
+    if (paramsobj.source) {
+        //console.log(paramsobj);
+        let text = '{' + tag + parametersstring + '}' + paramsobj.source + '{/' + tag + '}';
         let parent = window.parent;
 
         // use new API if editor supports it
@@ -68,15 +69,16 @@ function insertTag(editor, tag, parametersstring) {
  */
 function fromQueryString(querystring) {
     let parameters = {};
+    
     if (querystring.length > 1) {
         querystring.substr(1).split('&').forEach(function(keyvalue) {
             let index = keyvalue.indexOf('=');
             let key = index >= 0 ? keyvalue.substr(0, index) : keyvalue;
             let value = index >= 0 ? keyvalue.substr(index + 1) : '';
-
             parameters[decodeURIComponent(key)] = decodeURIComponent(value);
         });
     }
+
     return parameters;
 }
 
@@ -99,13 +101,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let checkboxselector = 'input[name][type=checkbox]';
     let radioselector = 'input[name][type=radio]';
     let textselector = 'input[name][type=text]';
+    let mediaselector = 'input[name][type=media]';
     let listselector = 'select[name]';
-    let ctrlselector = [checkboxselector, radioselector, textselector, listselector].join();
+    let ctrlselector = [checkboxselector, radioselector, textselector, listselector, mediaselector].join();
 
     // initialize parameter values to those set on content plug-in configuration page
     let options = window.parent['nxyoutube'];
 
-    console.log(options);
+    //console.log(options);
     if (options) { // variable that holds configuration settings as JSON object with parameter names as keys
         [].forEach.call(form.querySelectorAll(ctrlselector), function(elem) { // enumerate form controls in order of appearance
             let ctrl = /** @type {!HTMLInputElement|!HTMLSelectElement} */ (elem);
@@ -124,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // bind event to make parameter value appear in generated activation code
+    /*
     [].forEach.call(listitems, function(item) {
         // create marker control
         let updatebox = document.createElement('input');
@@ -140,50 +144,75 @@ document.addEventListener('DOMContentLoaded', function() {
         item.insertBefore(updatebox, item.firstChild); // inject as first element
     });
 
+    */
+
     // selects all user controls but omits checkboxes and radio buttons that are not checked
     let checkedselector = ':checked';
     let activectrlselector = [checkboxselector + checkedselector, radioselector + checkedselector, textselector, listselector].join();
 
     // Remove Checkboxes for Spacers on Ready
     jQuery(document).ready(function($) {
-        console.log('huhu 2');
+
         // Remove Checkbox for Spacer Entries
         jQuery('.spacer').each(function() {
             $(this).addClass('nx-h4');
             let parent = $(this).closest('.formelm');
-            console.log(parent);
+            //console.log(parent);
             parent.children('input').hide();
+        });
+
+        // Set active on click
+        jQuery('input, select').not(".diff_selector").change(function() {
+            let parent = $(this).closest('div.group');
+            let titlerow = parent.find('div.checkbox');
+            let checkbox = titlerow.find('input');
+            checkbox.prop('checked', true);
+            //console.log(checkbox);
+        });
+
+        // remove error if added on change for source
+        jQuery('#params_source').change(function() {
+            if (jQuery(this).parent('div').hasClass('error')) {
+                jQuery(this).parent('div').removeClass('error');
+            };
         });
 
     });
 
     // process parameters when form is submitted
     jQuery(document).on('click', '.nxyt-settings-submit', function() {
-        console.log('clicked');
-        let params = []; // activation code to insert
-        [].forEach.call(listitems, function(item) {
-            let updatebox = /** @type {HTMLInputElement} */ (item.querySelector('input[type=checkbox]')); // retrieve as first element
-            let ctrl = /** @type {!HTMLInputElement|!HTMLSelectElement} */ (item.querySelector(activectrlselector)); // first element with a form name (i.e. a control that corresponds to a real setting)
-            if (ctrl && updatebox && updatebox.checked) { // verify whether parameter value has changed
-                let name = get_param_name(ctrl);
-                let value = ctrl.value;
-                if (value) { // omit missing values
-                    if (/color$/.test(name) || !/^(0|[1-9]\d*)$/.test(value)) { // quote color codes but not integer values
-                        value = '"' + value + '"';
-                    };
-                    params.push(name + '=' + value);
+        //console.log('clicked');
+        let params = $("#nxyt-settings-form").serializeArray().map(function(v) { return [v.name, v.value]; });
 
-                    // Cleanup String Values for Object
-                    value = value.replace(/"/g, '');
+        //console.log(params);
 
-                    player_parameters[name] = value;
-                }
-            }
-        });
+        for (let i = 0; i < params.length; i++) {
+            let key = params[i][0];
+            let value = params[i][1].replace(/ /g, '%20');
+            key = key.replace('params[', '');
+            key = key.replace(']', '');
+            //console.log(key);
 
-        let paramtext = params.length > 0 ? ' ' + params.join(' ') : '';
+            if (((key in options) && options[key] !== value) || key === 'source') {
+                paramsobj[key] = value;
+                paramsArray.push(key + '=' + value);
+            };
+        };
 
-        // trigger event to request the activation tag to be inserted
-        insertTag(fromQueryString(window.location.search)['editor'], 'nxyt', paramtext);
+        //console.log(paramsobj);
+        if (paramsobj.source === '') {
+            //console.log('empty');
+            $('#params_source').parent('div').addClass('error');
+            $('html,body').animate({
+                scrollTop: 0
+            }, 400);
+
+        } else {
+            //console.log(paramsobj);
+            let paramtext = paramsArray.length > 0 ? ' ' + paramsArray.join(' ') : '';
+
+            // trigger event to request the activation tag to be inserted
+            insertTag(fromQueryString(window.location.search)['editor'], 'nxyt', paramtext);
+        };
     });
 });

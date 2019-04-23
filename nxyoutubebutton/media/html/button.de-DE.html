@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de-DE" lang="de-DE">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/media/jui/js/jquery.js"></script><script type="text/javascript" src="../js/classadder.js?ver=1.0"></script>
+<script type="text/javascript" src="../semanticui/semantic.min.js?ver=1.0"></script>
+<link rel="stylesheet" href="../semanticui/semantic.min.css">
+<script type="text/javascript" src="../js/semantic_init.js?ver=1.1"></script>
+<script type="text/javascript" src="../js/insert.js?ver=1.40"></script>
+<script type="text/javascript" src="../js/mediamanger_workaround.js"></script>
+<link rel="stylesheet" href="../css/modal.css">
+</head>
+<body>
+<form class="ui form" id="nxyt-settings-form">
+<div class="ui sticky"><div class="ui segment grid middle aligned">
+<div class="ui six wide column"><button class="ui button green nxyt-settings-submit" type="button">Insert</button></div>
+<div class="ui six wide right floated column"><img src="../img/v1_dark_small.png" /></div>
+</div></div>
+<div class="ui segment">
+<h4 class="ui dividing header">Source Setup</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="">
+<label id="params_source-lbl" for="params_source">
+	Video Source URL</label>
+
+</div>
+</div>
+<div class="field">
+<input type="text" name="params[source]" id="params_source"  value=""      placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX"         />
+
+</div>
+</div>
+</div>
+<div class="nx-selector ui segment">
+<h4 class="ui dividing header">Design Settings</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Select if the video container floats">
+<label id="params_pl_float-lbl" for="params_pl_float" class="hasPopover" title="Floating" data-content="Select if the video container floats">
+	Floating</label>
+
+</div>
+</div>
+<div class="field">
+<select id="params_pl_float" name="params[pl_float]">
+	<option value="none" selected="selected">no floating</option>
+	<option value="left">left</option>
+	<option value="right">right</option>
+</select>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Define the Video Container margin">
+<label id="params_pl_margin-lbl" for="params_pl_margin" class="hasPopover" title="Container Margin" data-content="Define the Video Container margin">
+	Container Margin</label>
+
+</div>
+</div>
+<div class="field">
+<select id="params_pl_margin" name="params[pl_margin]">
+	<option value="remove" selected="selected">remove margin</option>
+	<option value="small">small</option>
+	<option value="medium">medium</option>
+	<option value="large">large</option>
+</select>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="How much space of its parent container should the video use?">
+<label id="params_cont_width-lbl" for="params_cont_width" class="hasPopover" title="Container width" data-content="How much space of its parent container should the video use?">
+	Container width</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_cont_width" class="btn-group radio"
+				>
+
+						
+						<input type="radio" id="params_cont_width0" name="params[cont_width]" value="100" checked="checked" />			<label for="params_cont_width0" >
+				100%			</label>
+					
+						<input type="radio" id="params_cont_width1" name="params[cont_width]" value="75"  />			<label for="params_cont_width1" >
+				75%			</label>
+					
+						<input type="radio" id="params_cont_width2" name="params[cont_width]" value="50"  />			<label for="params_cont_width2" >
+				50%			</label>
+					
+						<input type="radio" id="params_cont_width3" name="params[cont_width]" value="33"  />			<label for="params_cont_width3" >
+				33%			</label>
+					
+						<input type="radio" id="params_cont_width4" name="params[cont_width]" value="25"  />			<label for="params_cont_width4" >
+				25%			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="how should the video be aligned? -> has just an impact when a width smaller then 100% is selected above">
+<label id="params_cont_align-lbl" for="params_cont_align" class="hasPopover" title="Container alignement" data-content="how should the video be aligned? -&gt; has just an impact when a width smaller then 100% is selected above">
+	Container alignement</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_cont_align" class="btn-group radio"
+				>
+
+						
+						<input type="radio" id="params_cont_align0" name="params[cont_align]" value="left"  />			<label for="params_cont_align0" >
+				left			</label>
+					
+						<input type="radio" id="params_cont_align1" name="params[cont_align]" value="center" checked="checked" />			<label for="params_cont_align1" >
+				center			</label>
+					
+						<input type="radio" id="params_cont_align2" name="params[cont_align]" value="right"  />			<label for="params_cont_align2" >
+				right			</label>
+			</fieldset>
+
+</div>
+</div>
+</div>
+<div class="nx-selector ui segment">
+<h4 class="ui dividing header">Player Settings</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Should the video autoplay (with activated Privacy Blocker the video starts directly after clicking on the blocker element)">
+<label id="params_pl_ap-lbl" for="params_pl_ap" class="hasPopover" title="Autoplay" data-content="Should the video autoplay (with activated Privacy Blocker the video starts directly after clicking on the blocker element)">
+	Autoplay</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_ap" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_ap0" name="params[pl_ap]" value="0" checked="checked" />			<label for="params_pl_ap0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_ap1" name="params[pl_ap]" value="1"  />			<label for="params_pl_ap1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Should the video be played in an endless loop">
+<label id="params_pl_lo-lbl" for="params_pl_lo" class="hasPopover" title="Loop" data-content="Should the video be played in an endless loop">
+	Loop</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_lo" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_lo0" name="params[pl_lo]" value="0" checked="checked" />			<label for="params_pl_lo0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_lo1" name="params[pl_lo]" value="1"  />			<label for="params_pl_lo1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Defines whether subtitles are displayed (if available in the video)">
+<label id="params_pl_sub-lbl" for="params_pl_sub" class="hasPopover" title="Subtitles" data-content="Defines whether subtitles are displayed (if available in the video)">
+	Subtitles</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_sub" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_sub0" name="params[pl_sub]" value="0" checked="checked" />			<label for="params_pl_sub0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_sub1" name="params[pl_sub]" value="1"  />			<label for="params_pl_sub1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Disable keyboard control?">
+<label id="params_pl_dis_kb-lbl" for="params_pl_dis_kb" class="hasPopover" title="Disable Keyboard" data-content="Disable keyboard control?">
+	Disable Keyboard</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_dis_kb" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_dis_kb0" name="params[pl_dis_kb]" value="0" checked="checked" />			<label for="params_pl_dis_kb0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_dis_kb1" name="params[pl_dis_kb]" value="1"  />			<label for="params_pl_dis_kb1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Should controls be displayed?">
+<label id="params_pl_ctrl-lbl" for="params_pl_ctrl" class="hasPopover" title="Display Controls" data-content="Should controls be displayed?">
+	Display Controls</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_ctrl" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_ctrl0" name="params[pl_ctrl]" value="0" checked="checked" />			<label for="params_pl_ctrl0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_ctrl1" name="params[pl_ctrl]" value="1"  />			<label for="params_pl_ctrl1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Fullscreen Icon">
+<label id="params_pl_fs-lbl" for="params_pl_fs" class="hasTooltip" title="&lt;strong&gt;Fullscreen Icon&lt;/strong&gt;">
+	Fullscreen Icon</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_fs" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_fs0" name="params[pl_fs]" value="0" checked="checked" />			<label for="params_pl_fs0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_fs1" name="params[pl_fs]" value="1"  />			<label for="params_pl_fs1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Display YT Icon in Controls">
+<label id="params_pl_mb-lbl" for="params_pl_mb" class="hasTooltip" title="&lt;strong&gt;Display YT Icon in Controls&lt;/strong&gt;">
+	Display YT Icon in Controls</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_mb" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_mb0" name="params[pl_mb]" value="0" checked="checked" />			<label for="params_pl_mb0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_mb1" name="params[pl_mb]" value="1"  />			<label for="params_pl_mb1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="iOS inline playback">
+<label id="params_pl_ios-lbl" for="params_pl_ios" class="hasTooltip" title="&lt;strong&gt;iOS inline playback&lt;/strong&gt;">
+	iOS inline playback</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_pl_ios" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_pl_ios0" name="params[pl_ios]" value="0" checked="checked" />			<label for="params_pl_ios0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_pl_ios1" name="params[pl_ios]" value="1"  />			<label for="params_pl_ios1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="If enabled the Player displays Debug Informations on Site and in the Javascript Console">
+<label id="params_nx_debug-lbl" for="params_nx_debug" class="hasPopover" title="Enable Debug" data-content="If enabled the Player displays Debug Informations on Site and in the Javascript Console">
+	Enable Debug</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_nx_debug" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_nx_debug0" name="params[nx_debug]" value="0" checked="checked" />			<label for="params_nx_debug0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_nx_debug1" name="params[nx_debug]" value="1"  />			<label for="params_nx_debug1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+</div>
+<div class="nx-selector ui segment">
+<h4 class="ui dividing header">Security Data Privacy Settings</h4><div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="">
+<label id="params_block_loading-lbl" for="params_block_loading">
+	Block Youtube Frame on Pageload</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_block_loading" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_block_loading0" name="params[block_loading]" value="0"  />			<label for="params_block_loading0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_block_loading1" name="params[block_loading]" value="1" checked="checked" />			<label for="params_block_loading1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Default means Block Message (set up below) will be used as Blocklayer, Image means you can define a default image (and a seperated if needed for each video) to show as Blocklayer. In Image mode you can also select if the Block-Message should appear as Modal on-click.">
+<label id="params_block_loading_type-lbl" for="params_block_loading_type" class="hasPopover" title="Blocklayer Type" data-content="Default means Block Message (set up below) will be used as Blocklayer, Image means you can define a default image (and a seperated if needed for each video) to show as Blocklayer. In Image mode you can also select if the Block-Message should appear as Modal on-click.">
+	Blocklayer Type</label>
+
+</div>
+</div>
+<div class="field">
+<select id="params_block_loading_type" name="params[block_loading_type]">
+	<option value="default">default</option>
+	<option value="image">image</option>
+</select>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Select here a default image for the blocklayer">
+<label id="params_block_image-lbl" for="params_block_image" class="hasPopover" title="Default Image for Content block" data-content="Select here a default image for the blocklayer">
+	Default Image for Content block</label>
+
+</div>
+</div>
+<div class="field">
+<div class="field-media-wrapper"
+	data-basepath="http://joomlalocal/"
+	data-url="index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset=com_content&amp;author=&amp;fieldid={field-media-id}&amp;ismoo=0&amp;folder="
+	data-modal=".modal"
+	data-modal-width="100%"
+	data-modal-height="400px"
+	data-input=".field-media-input"
+	data-button-select=".button-select"
+	data-button-clear=".button-clear"
+	data-button-save-selected=".button-save-selected"
+	data-preview="true"
+	data-preview-as-tooltip="true"
+	data-preview-container=".field-media-preview"
+	data-preview-width="200"
+	data-preview-height="200"
+>
+	<div id="imageModal_params_block_image" tabindex="-1" class="modal hide fade">
+	<div class="modal-header">
+			<button
+			type="button"
+			class="close novalidate"
+			data-dismiss="modal"
+			aria-label="Schließen"
+			>
+			<span aria-hidden="true">&times;</span>
+		</button>
+				<h3>Bild bearbeiten</h3>
+	</div>
+<div class="modal-body">
+	</div>
+<div class="modal-footer">
+	<button type="button" class="btn" data-dismiss="modal">Abbrechen</button></div>
+</div>
+		<div class="input-prepend input-append">
+		<span rel="popover" class="add-on pop-helper field-media-preview"
+			title="Bild auswählen" data-content="Kein Bild ausgewählt."
+			data-original-title="Bild auswählen" data-trigger="hover">
+			<span class="icon-eye" aria-hidden="true"></span>
+		</span>
+			<input type="text" name="params[block_image]" id="params_block_image" value="" readonly="readonly" class="input-small hasTooltip field-media-input"/>
+					<button type="button" class="btn button-select">Auswählen</button>
+			<button
+				type="button"
+				class="btn hasTooltip button-clear"
+				title="Leeren"
+				aria-label="Leeren"
+				>
+				<span class="icon-remove" aria-hidden="true"></span>
+			</button>
+			</div>
+	</div>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="Display Modal with Text (use field below)">
+<label id="params_block_modal_select-lbl" for="params_block_modal_select" class="hasPopover" title="Modal for Two-Click" data-content="Display Modal with Text (use field below)">
+	Modal for Two-Click</label>
+
+</div>
+</div>
+<div class="field">
+<fieldset id="params_block_modal_select" class="btn-group btn-group-yesno radio"
+				>
+
+						
+						<input type="radio" id="params_block_modal_select0" name="params[block_modal_select]" value="0"  />			<label for="params_block_modal_select0" >
+				Nein			</label>
+					
+						<input type="radio" id="params_block_modal_select1" name="params[block_modal_select]" value="1" checked="checked" />			<label for="params_block_modal_select1" >
+				Ja			</label>
+			</fieldset>
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="">
+<label id="params_accept_txt_string-lbl" for="params_accept_txt_string">
+	Accept Button Text</label>
+
+</div>
+</div>
+<div class="field">
+<input type="text" name="params[accept_txt_string]" id="params_accept_txt_string"  value="accept"               />
+
+</div>
+</div>
+<div class="nx-fields group">
+<div class="inline fields">
+<div class="label nx-tooltip" data-content="">
+<label id="params_decline_txt_string-lbl" for="params_decline_txt_string">
+	Decline Button Text</label>
+
+</div>
+</div>
+<div class="field">
+<input type="text" name="params[decline_txt_string]" id="params_decline_txt_string"  value="decline"               />
+
+</div>
+</div>
+</div>
+</form>
+<p style="margin-top:40px; color:#f1f1f1; text-align:right">powered by nx-designs</p>
+<div id="debug"></div></body>
+</html>
