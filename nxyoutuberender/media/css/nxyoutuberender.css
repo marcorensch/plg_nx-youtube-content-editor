@@ -15,76 +15,212 @@
 }
 
 .nx-video-placeholder {
-    position:absolute;
+    position: absolute;
     width: 90%;
     height: 90%;
     padding: 5%;
-    display:block;
+    display: block;
     cursor: pointer;
 }
 
 .nx-video-placeholder .placeholder_inner {
+    /*
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     height: 100%;
-    padding:5%;
+    padding: 5%;
     -webkit-box-align: center;
-       -ms-flex-align: center;
-          align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
-       -ms-flex-pack: center;
-     justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    */
+}
+.nx-placeholder-img {
+    width: 100%;
+    height: 100%;
+    padding:0;
+}
+.nx-placeholder-img img{
+    width:100%;
+    height: 100%;
 }
 
+/* MODAL */
+ /* The Modal (background) */
+ .nx-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+ 
+  /* Modal Content/Box */
+  .nx-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  .nx-modal-button{
+    display: inline-block;
+    position: relative;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 2px;
+    border: none;
+    font-size: 0.9em;
+    background-color: #000;
+    color: #f7f7f7;
+    margin: 20px 10px;
+    transition: 0.2s;
+    transition-delay: 0.2s;
+  }
+
+  .nx-modal-button:active,
+  .nx-modal-button:hover{
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    color: #fff !important;
+    transition-delay: 0s;
+  }
+
+  .nx-modal-button.blue {
+    background-color: #4285f4;
+    color: #fff;
+  }
+
+  .nx-modal-button.green {
+    background-color: #0f9d58;
+    color: #fff;
+  }
+  
+  /* The Close Button */
+  .nx-modal-close-cls {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .nx-modal-close-cls:hover,
+  .nx-modal-close-cls:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  } 
+
+@media only screen and (min-width: 768px){
+    .nx-modal-content {
+        width: 40%; /* Could be more or less, depending on screen size */
+    }
+}
+
+
 /* Margins */
+
 .nx-margin-remove {
     margin: 0;
 }
+
 .nx-margin-small {
     margin: 10px;
 }
+
 .nx-margin-medium {
     margin: 20px;
 }
+
 .nx-margin-large {
     margin: 40px;
 }
 
+
 /* For mobile phones: */
+
 [class*="nx-col-"] {
     width: 100%;
 }
+
 [class*="nx-float-"] {
     float: none;
 }
 
-@media only screen and (min-width: 768px) {
-    /* For desktop: */
-    .nx-col-1 {width: 8.33%;}
-    .nx-col-2 {width: 16.66%;}
-    .nx-col-3 {width: 25%;}
-    .nx-col-4 {width: 33.33%;}
-    .nx-col-5 {width: 41.66%;}
-    .nx-col-6 {width: 50%;}
-    .nx-col-7 {width: 58.33%;}
-    .nx-col-8 {width: 66.66%;}
-    .nx-col-9 {width: 75%;}
-    .nx-col-10 {width: 83.33%;}
-    .nx-col-11 {width: 91.66%;}
-    .nx-col-12 {width: 100%;}
-
-    /* Floating */
-    .nx-float-none{
-        float: none;
-    }
-    .nx-float-left{
-        float: left;
-    }
-    .nx-float-right{
-        float:right;
-    }
+[class*="nx-align-"] {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-
-
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .nx-col-1 {
+        width: 8.33%;
+    }
+    .nx-col-2 {
+        width: 16.66%;
+    }
+    .nx-col-3 {
+        width: 25%;
+    }
+    .nx-col-4 {
+        width: 33.33%;
+    }
+    .nx-col-5 {
+        width: 41.66%;
+    }
+    .nx-col-6 {
+        width: 50%;
+    }
+    .nx-col-7 {
+        width: 58.33%;
+    }
+    .nx-col-8 {
+        width: 66.66%;
+    }
+    .nx-col-9 {
+        width: 75%;
+    }
+    .nx-col-10 {
+        width: 83.33%;
+    }
+    .nx-col-11 {
+        width: 91.66%;
+    }
+    .nx-col-12 {
+        width: 100%;
+    }
+    /* Floating */
+    .nx-float-none {
+        float: none;
+    }
+    .nx-float-left {
+        float: left;
+    }
+    .nx-float-right {
+        float: right;
+    }
+    /* Alignement */
+    .nx-align-left {
+        margin-left: 0;
+        margin-right: auto;
+    }
+    .nx-align-right {
+        margin-left: auto;
+        margin-right: 0;
+    }
+    .nx-align-center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
