@@ -42,7 +42,7 @@ class PlgContentNxyoutubeRender extends JPlugin
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		
-
+		$nxdebug = intval($this->params->get('nx_debug'));
 		$text = $article->text;
 		
 
@@ -50,14 +50,14 @@ class PlgContentNxyoutubeRender extends JPlugin
 	 	$tag = 'nxyt';
 
 		// Don't run this plugin when the content is being indexed
-		if ($context == 'com_finder.indexer')
+		if ($context == 'com_finder.indexer' && $nxdebug)
 		{
 			echo '<script>console.log("Indexer Mode");</script>';
 			return true;
 		}
 
 		// Simple performance check to determine whether bot should process further
-		if (strpos($article->text, $tag) === false )
+		if (strpos($article->text, $tag) === false && $nxdebug )
 		{
 			echo '<script>console.log("Tag nicht gefunden '.$tag. '");</script>';
 			return true;
@@ -78,17 +78,19 @@ class PlgContentNxyoutubeRender extends JPlugin
 		$tag_player = preg_quote($tag, '#');
 		$pattern = '#\{'.$tag_player.'\b('.$param_pattern.')\}(.+?)\{/'.$tag_player.'\}#msSu';
 
-		$article->text = $this->getPlayerReplacementAll($text, $pattern); // counter for idk
+		$article->text = $this->getPlayerReplacementAll($text, $pattern, $nxdebug); // counter for idk
 	}
 
 
-	private function setPlayerParameter($paramtext){
+	private function setPlayerParameter($paramtext, $nxdebug){
 		// Plugin Parameters:
 		$plg_params = $this->params;
-/*
-		var_dump($this->params->get('layout'));
-		highlight_string("<?php\n\$data =\n" . var_export($this->params, true) . ";\n?>");
-*/
+
+		if($nxdebug){
+			echo '<h5>Debug Informations nx-youtube Content Plugin - Plugin Parameters:</h5>';
+			echo '<pre>' . var_export($this->params, true) . '</pre>';
+		}
+		
 		// User Parameters:
 		$array= explode(' ', trim($paramtext));
 		$usr_params = array();
@@ -105,6 +107,10 @@ class PlgContentNxyoutubeRender extends JPlugin
 			}
 			$new_arr = array($element[0]=> $value);
 			$usr_params = array_merge($usr_params, $new_arr);
+		}
+		if($nxdebug){
+			echo '<h5>Debug Informations nx-youtube Content Plugin - User Parameters:</h5>';
+			echo '<pre>' . var_export($usr_params, true) . '</pre>';
 		}
 		// Combine Parameters
 		$video_params = new stdClass();
@@ -126,7 +132,7 @@ class PlgContentNxyoutubeRender extends JPlugin
 	* @param {string} $text Article (content item) text.
 	* @param {string} $pattern Replacement regular expression pattern.
 	*/
-	private function getPlayerReplacementAll(&$text, $pattern)
+	private function getPlayerReplacementAll(&$text, $pattern, $nxdebug)
 	{
 		$count = 0;
 		$offset = 0;
@@ -137,10 +143,10 @@ class PlgContentNxyoutubeRender extends JPlugin
 			$end = $start + strlen($match[0][0]);
 
 			$innertext = isset($match[2]) ? $match[2][0] : null;  // text in between start and end tags (unless omitted)
-			echo '<script>console.log("Inner Text '.$innertext. '");</script>';
+			if($nxdebug){echo '<script>console.log("Inner Text '.$innertext. '");</script>';};
 			$paramtext = $match[1][0];
-			echo "<script>console.log('Param Text $paramtext');</script>";
-			$body = $this->getPlayerReplacementSingle($paramtext);
+			if($nxdebug){echo "<script>console.log('Param Text $paramtext');</script>";};
+			$body = $this->getPlayerReplacementSingle($paramtext, $nxdebug);
 			$text = substr($text, 0, $start).$body.substr($text, $end);
 
 			$offset = $start + strlen($body);
@@ -154,15 +160,18 @@ class PlgContentNxyoutubeRender extends JPlugin
 	* Replaces a single occurrence of a video activation tag.
 	* @param {string} $paramtext A string that stores parameter key/value pairs.
 	*/
-	private function getPlayerReplacementSingle($paramtext) {
+	private function getPlayerReplacementSingle($paramtext, $nxdebug) {
 
 		// the activation code {nxyt key=value}urlorid{/nxyt} translates into a source and a parameter string
 		$paramtext = self::strip_html($paramtext);
 		// Parameters
 		
-		$playerParameters = self::setPlayerParameter($paramtext);
+		$playerParameters = self::setPlayerParameter($paramtext, $nxdebug);
 		$cls = ' nx-float-'.$playerParameters->pl_float;
-		echo '<pre>' . var_export($playerParameters, true) . '</pre>';
+		if($nxdebug){ 
+			echo '<h5>Debug Informations nx-youtube Content Plugin - Player Parameters:</h5>';
+			echo '<pre>' . var_export($playerParameters, true) . '</pre>';
+		};
 
 		switch($playerParameters->cont_width){
 			case '25':
@@ -182,25 +191,121 @@ class PlgContentNxyoutubeRender extends JPlugin
 				$cls .= ' nx-col-12';
 				break;
 		};
-
-		$playersetupstring = '?autoplay='.$playerParameters->pl_ap.'&controls='.$playerParameters->pl_ctrl.'&disablekb='.$playerParameters->pl_dis_kb.'&cc_load_policy='.$playerParameters->pl_sub.'&playsinline='.$playerParameters->pl_ios.'&modestbranding='.$playerParameters->pl_mb.'&loop='.$playerParameters->pl_lo.'&fs='.$playerParameters->pl_fs.'&origin='.JUri::getInstance();
-
-
-		$placeholder = '<div class="nx-video-placeholder" data-container-id="'.$playerParameters->nxytid.'"><div class="placeholder_inner">'.$playerParameters->block_message.'</div></div>';
-		$iframe = '<iframe width="1920" height="1080" src="https://www.youtube-nocookie.com/embed/'.$playerParameters->source.$playersetupstring.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-		$document = JFactory::getDocument();
-		$document->addScriptDeclaration('
-		jQuery(document).ready(function($){
-			console.log(\'nx-youtube plugin replacer for '.$playerParameters->nxytid.' loaded\');
-			$(\'.nx-video-container\').on(\'click\',\'.nx-video-placeholder[data-container-id="'.$playerParameters->nxytid.'"]\', function(){
-				let containerId = $(this).attr(\'data-container-id\');
-				$(\'.nx-video-container[data-container-id="\'+containerId+\'"]\').html(\''.$iframe.'\');
-			});
-		});
+		if($playerParameters->pl_float === 'none'){
+			$cls .= ' nx-align-'.$playerParameters->cont_align;
+			/*
+			switch($playerParameters->cont_align){
+				case 'left':
+				case 'right':
+					$cls .= 'nx-align-'.$playerParameters->cont_align;
+				break;
+				case '':
+				default:
+			};
+			*/
+		};
 		
-		');
+		// Build it
+		$document = JFactory::getDocument();
+		$playersetupstring = '?';
+		$playersetupstring .= 'autoplay='.$playerParameters->pl_ap.'&controls='.$playerParameters->pl_ctrl.'&disablekb='.$playerParameters->pl_dis_kb.'&cc_load_policy='.$playerParameters->pl_sub.'&playsinline='.$playerParameters->pl_ios.'&modestbranding='.$playerParameters->pl_mb;
+		if(intval($playerParameters->pl_lo)) $playersetupstring .='&loop='.$playerParameters->pl_lo.'&playlist='.$playerParameters->source; // For Looping you have to add the Playlist Parameter to the video ID (https://developers.google.com/youtube/player_parameters#loop)
+		$playersetupstring .= '&fs='.$playerParameters->pl_fs.'&origin='.JUri::getInstance();
+		
+		$iframe = '<iframe width="1920" height="1080" src="https://www.youtube-nocookie.com/embed/'.$playerParameters->source . $playersetupstring.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+		
+
+		
+		switch($playerParameters->block_loading_type){
+			case 'image':
+				$placeholder = '<div class="nx-video-placeholder nx-placeholder-img" data-container-id="'.$playerParameters->nxytid.'"><img src="'.$playerParameters->block_image.'" title="" alt=""></div>';
+
+				switch($playerParameters->block_modal_select){
+					case '1':
+						// MODAL
+						$placeholder .= self::nxmodal($playerParameters);
+						// Image as Blocklayer
+						$document->addScriptDeclaration('
+						jQuery(document).ready(function($){
+
+							let nxmodal = $(\'#'.$playerParameters->nxytid.'\');
+							let nxclose = $(\'#'.$playerParameters->nxytid.'\').find(\'.nx-modal-close\');
+							let nxaccept = $(\'#'.$playerParameters->nxytid.'\').find(\'.nx-modal-accept\');
+							//console.log(nxclose);
+
+							$(nxclose).click(function(){
+								//console.log("close me");
+								$(nxmodal).fadeOut(\'fast\');
+							});
+
+							//console.log(close);
+
+							//console.log(\'nx-youtube plugin replacer for '.$playerParameters->nxytid.' loaded\');
+							$(\'.nx-video-container\').on(\'click\',\'.nx-video-placeholder[data-container-id="'.$playerParameters->nxytid.'"]\', function(){
+								let containerId = $(this).attr(\'data-container-id\');
+								$(nxmodal).fadeIn(\'fast\');
+
+								$(nxaccept).click(function(){
+									//console.log("akkzeptiert");
+									$(\'.nx-video-container[data-container-id="\'+containerId+\'"]\').html(\''.$iframe.'\');
+								});
+
+
+
+								$(".nx-modal").click(function( event ){
+									//console.log($(event.target).attr(\'class\'));
+									if($(event.target).attr(\'class\') === "nx-modal"){
+										$(nxmodal).fadeOut(\'fast\');
+									}
+								});
+
+							});
+
+							
+
+						});
+						
+						');
+						
+					break;
+					case '0':
+					default:
+						// no MODAL
+						// Image as Blocklayer
+						$document->addScriptDeclaration('
+						jQuery(document).ready(function($){
+							//console.log(\'nx-youtube plugin replacer for '.$playerParameters->nxytid.' loaded\');
+							$(\'.nx-video-container\').on(\'click\',\'.nx-video-placeholder[data-container-id="'.$playerParameters->nxytid.'"]\', function(){
+								let containerId = $(this).attr(\'data-container-id\');
+								$(\'.nx-video-container[data-container-id="\'+containerId+\'"]\').html(\''.$iframe.'\');
+							});
+						});
+						
+						');
+				}
+			break;
+			case 'default':
+			default:
+				$placeholder = '<div class="nx-video-placeholder" data-container-id="'.$playerParameters->nxytid.'"><div class="placeholder_inner">'.$playerParameters->block_message.'</div></div>';
+				// Default (Blockmessage as Blocklayer)
+				$document->addScriptDeclaration('
+				jQuery(document).ready(function($){
+					//console.log(\'nx-youtube plugin replacer for '.$playerParameters->nxytid.' loaded\');
+					$(\'.nx-video-container\').on(\'click\',\'.nx-video-placeholder[data-container-id="'.$playerParameters->nxytid.'"]\', function(){
+						let containerId = $(this).attr(\'data-container-id\');
+						$(\'.nx-video-container[data-container-id="\'+containerId+\'"]\').html(\''.$iframe.'\');
+					});
+				});
+				
+				');
+		}
+		
+		
+		
+		
 
 		$player = '';
+		if($playerParameters->pl_float === 'none') $player .= '<div style="width:100%; position:relative;">';
 		$player .= '<div class="nx-video-container-outer '.trim($cls).'">';
 		$player .= 		'<div class="nx-video-container nx-margin-'.$playerParameters->pl_margin.'" style="background-color:'.$playerParameters->block_message_bg.'" data-container-id="'.$playerParameters->nxytid.'">';
 		if(intval($playerParameters->block_loading)){
@@ -210,13 +315,25 @@ class PlgContentNxyoutubeRender extends JPlugin
 		};
 		$player .= 		'</div>';
 		$player .= '</div>';
+		if($playerParameters->pl_float === 'none') $player .= '</div>';
 
 		
 
 		return $player;
 	}
 
-	
+	private function nxmodal($playerParameters){
+		$modal = '<div id="'.$playerParameters->nxytid.'" class="nx-modal">
+						<div class="nx-modal-content">
+						  <span class="nx-modal-close nx-modal-close-cls">&times;</span>
+						  <p>'.$playerParameters->block_message.'</p>
+						  <button class="nx-modal-accept nx-modal-close nx-modal-button green">'.$playerParameters->accept_txt_string.'</button>
+						  <button class="nx-modal-decline nx-modal-close nx-modal-button">'.$playerParameters->decline_txt_string.'</button>
+						</div>
+					  
+					  </div>';
+		return $modal;
+	}
 
 	private static function strip_html($html) {
 		$text = html_entity_decode($html, ENT_QUOTES, 'utf-8');  // translate HTML entities to regular characters

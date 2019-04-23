@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>info@nx-designs.ch</authorEmail>
 	<authorUrl>www.nx-designs.ch</authorUrl>
-	<version>1.0</version>
+	<version>1.2</version>
 	<description>PLG_NXYTRNDR_CONTENT_DESCRIPTION</description>
 	<files>
 		<filename plugin="nxyoutuberender">nxyoutuberender.php</filename>
@@ -50,9 +50,9 @@
 					<option value="center">PLG_NXYTRNDR_CALIGN_CENTER</option>
 					<option value="right">PLG_NXYTRNDR_CALIGN_RIGHT</option>
 				</field>
-
-				<!-- Player Settings --> 
-				<field name="pl_spacer" type="spacer" label="PLG_NXYTRNDR_SPC_PL" class="nx-spacer" />
+			</fieldset>
+			<fieldset name="player_settings" label="PLG_NXYTRNDR_SPC_PL">
+				<!-- Player Settings -->
 				<field name="pl_ap" type="radio" default="0" label="PLG_NXYTRNDR_PL_AP" description="PLG_NXYTRNDR_PL_AP_DESCRIPTION" class="btn-group btn-group-yesno">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
@@ -93,14 +93,30 @@
 					<option value="1">JYES</option>
 				</field>
 
+				<field name="nx_debug" type="radio" default="0" label="PLG_NXYTRNDR_DEBUG" description="PLG_NXYTRNDR_DEBUG_DESC" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+			<fieldset name="security_settings" label="PLG_NXYTRNDR_SEC_PL">
 				<!-- Security --> 
-				<field name="pl_security" type="spacer" label="PLG_NXYTRNDR_SEC_PL" class="nx-spacer" />
 				<field name="block_loading" type="radio" default="1" label="PLG_NXYTRNDR_BLOCKLOAD" description="PLG_NXYTRNDR_BLOCKLOAD_DESCRIPTION" class="btn-group btn-group-yesno">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+				<field showon="block_loading:1" name="block_loading_type" type="list" default="1" label="PLG_NXYTRNDR_BLOCKLOAD_TYPE" description="PLG_NXYTRNDR_BLOCKLOAD_TYPE_DESCRIPTION" class="">
+					<option value="default">default</option>
+					<option value="image">image</option>
+				</field>
+				<field showon="block_loading:1[AND]block_loading_type:image" name="block_image" label="PLG_NXYTRNDR_BLOCKLOAD_IMAGE" description="PLG_NXYTRNDR_BLOCKLOAD_IMAGE_DESCRIPTION" type="media" directory="images" />
+				<field showon="block_loading:1[AND]block_loading_type:image" name="block_modal_select" type="radio" default="1" label="PLG_NXYTRNDR_BLOCKLOAD_MODAL" description="PLG_NXYTRNDR_BLOCKLOAD_MODAL_DESCRIPTION" class="btn-group btn-group-yesno">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 				<field showon="block_loading:1" name="block_message_bg" type="color" format="rgba" default="rgba(100,100,100, 0.7)" label="PLG_NXYTRNDR_BMBG" description="PLG_NXYTRNDR_BMBG_DESC" />
-				<field showon="block_loading:1" name="block_message" type="editor" label="PLG_NXYTRNDR_BM" description="Enter here your text / HTML for Blocking Container" width="900" filter="safehtml" />
+				<field showon="block_loading:1" name="block_message" type="editor" label="PLG_NXYTRNDR_BM" description="PLG_NXYTRNDR_BM_DESC" width="900" filter="safehtml" />
+				<field showon="block_loading:1" type="text" name="accept_txt_string" label="PLG_NXYTRNDR_ACCEPT_STRING_LBL" description="PLG_NXYTRNDR_ACCEPT_STRING_DESC" default="accept" />
+				<field showon="block_loading:1" type="text" name="decline_txt_string" label="PLG_NXYTRNDR_DECLINE_STRING_LBL" description="PLG_NXYTRNDR_DECLINE_STRING_DESC" default="decline" />
 			</fieldset>
 		</fields>
 	</config>
